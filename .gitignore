@@ -1,0 +1,59 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+*.bin
+
+# Visual Studio
+*.vcxproj*
+Debug
+Release
+Win32
+bin
+*.dir
+*.sdf
+*.sln
+*.suo
+*.opensdf
+*.vs
+
+# CMake
+CMakeCache.txt
+CMakeFiles
+Makefile
+*.cmake
+
+# vim
+*.swp
+.DS_Store
+*.pyc
+*.py
+*.json
+
+# misc
+*.ppm
+*.obj
+*.mtl
