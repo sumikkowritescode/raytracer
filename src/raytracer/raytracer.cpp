@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <vector>
 #include <fstream>
 #include <chrono>
@@ -12,7 +13,9 @@ namespace Raytracer {
     Raytracer::Raytracer() :
         m_infinity(std::numeric_limits<float>::max()),
         m_epsilon(1e-8),
-        m_bgColor(Vec3f(0.0f, 0.0f, 0.0f))
+        m_bgColor(Vec3f(0.0f, 0.0f, 0.0f)),
+        m_lightPosition(Vec3f(0.5f, 0.2f, 0.6f)),
+        m_lightColor(Vec3f(1.0f, 1.0f, 1.0f))
     {
     }
 
@@ -39,15 +42,15 @@ namespace Raytracer {
     }
 
     Vec3f Raytracer::GetColor(const Ray &ray, TriangleMesh &mesh) {
-        Vec3f hitColor = m_bgColor;
-        Vec3f normal;
-        float tnear = m_infinity;
-        bool rayHit = false;
+        m_hitColor = m_bgColor;
+        m_tNear = m_infinity;
+        m_rayHit = false;
 
-        if (TraceRay(ray, mesh, tnear, rayHit, normal)) {
-            hitColor = normal;
+        if (TraceRay(ray, mesh, m_tNear, m_rayHit, m_normal)) {
+            float cosTheta = std::clamp(dot(m_normal, m_lightPosition), 0.0f, 1.0f);
+            m_hitColor = cosTheta * m_lightColor;
         }
-        return hitColor;
+        return m_hitColor;
     }
 
     void Raytracer::Render() {

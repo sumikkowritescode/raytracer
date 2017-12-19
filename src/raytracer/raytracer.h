@@ -33,6 +33,13 @@ namespace Raytracer {
         Vec3f m_lookFrom;
         Vec3f m_lookAt;
 
+        Vec3f m_hitColor;
+        Vec3f m_normal;
+
+        Vec3f m_lightPosition;
+        Vec3f m_lightColor;
+
+        float m_tNear;
         float m_infinity;
         float m_epsilon;
 
@@ -40,6 +47,7 @@ namespace Raytracer {
         float m_height;
 
         bool m_useBVH;
+        bool m_rayHit;
     };
 }
 #endif // !RAYTRACER_H

@@ -1,14 +1,14 @@
 # Raytracer
 Under development!
 
-Currently supports:
+Features:
 - OBJ model loading
   * using tinyobjloader: https://github.com/syoyo/tinyobjloader
 - BVH acceleration
-- Draws face normals instead of a single color
+- Simple Shading
 
 TODO:
-- Shading
+- Different materials
 - Support for multiple objects
 - SAH KDTree implementation instead of BVH
 - Use scene configurations instead of a single config file

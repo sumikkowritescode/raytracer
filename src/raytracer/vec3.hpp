@@ -30,8 +30,6 @@ namespace Raytracer {
             return x * x + y * y + z * z;
         }
 
-        inline void make_unit_vector();
-
         inline void normalize() {
             float l = length();
             x = x / l;
@@ -50,11 +48,6 @@ namespace Raytracer {
     inline std::ostream& operator<<(std::ostream &os, const Vec3f &t) {
         os << t.x << " " << t.y << " " << t.z;
         return os;
-    }
-
-    inline void Vec3f::make_unit_vector() {
-        float k = 1.0f / sqrt(x*x + y*y + z*z);
-        x *= k; y *= k; z *= k;
     }
 
     inline Vec3f operator+(const Vec3f &v1, const Vec3f &v2) {
