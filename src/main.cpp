@@ -41,8 +41,9 @@ int main(int argc,  char* argv[]) {
         else if (useBVH)
             std::cout << "BVH in use.\n" << std::endl;
 
-        raytracer.ReadConfig("config");
-        
+        // TODO: Read config from command line arguments
+        raytracer.ReadConfig("config.yaml");
+
         if (raytracer.LoadModel(filename))
             raytracer.Render();
         else

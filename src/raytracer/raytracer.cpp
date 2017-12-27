@@ -9,6 +9,7 @@
 
 #include "camera.h"
 #include "raytracer.h"
+#include "yaml-cpp/yaml.h"
 
 namespace Raytracer {
     Raytracer::Raytracer() :
@@ -100,8 +101,6 @@ namespace Raytracer {
 
     // TODO: Repalce this with an image file writer instead (PNG/TIF/Whatever rocks my boat)
     void Raytracer::WriteFile(const std::vector<Vec3f> &frameBuffer) {
-        const int frame = 0;
-
         std::ofstream imgFileStream;
 
         imgFileStream.open("image.ppm");
@@ -118,45 +117,15 @@ namespace Raytracer {
         imgFileStream.close();
     }
 
-    // This function is not handling errors properly. It will get solved once the YAML reader is in place.
     void Raytracer::ReadConfig(const std::string &filename) {
-        std::ifstream configFile;
-        configFile.open(filename, std::ios_base::in);
-        assert(configFile.is_open());
+        YAML::Node config = YAML::LoadFile(filename);
 
-        for(std::string line; std::getline(configFile, line); )
-        {
-            std::istringstream in(line);
+        m_width = config["settings"]["width"].as<float>();
+        m_height = config["settings"]["height"].as<float>();
 
-            std::string type;
-            in >> type;
+        m_lookFrom = Vec3f(config["settings"]["origin"][0].as<float>(), config["settings"]["origin"][1].as<float>(), config["settings"]["origin"][2].as<float>());
+        m_lookAt =   Vec3f(config["settings"]["target"][0].as<float>(), config["settings"]["target"][1].as<float>(), config["settings"]["target"][2].as<float>());
 
-            if (type == "width")
-            {
-                int width;
-                in >> width;
-                m_width = static_cast<float>(width);
-            }
-            else if (type == "height")
-            {
-                int height;
-                in >> height;
-                m_height = static_cast<float>(height);
-            }
-            else if(type == "origin")
-            {
-                float x, y, z;
-                in >> x >> y >> z;
-                m_lookFrom = Vec3f(x, y, z);
-            }
-            else if(type == "target")
-            {
-                float x, y, z;
-                in >> x >> y >> z;
-                m_lookAt = Vec3f(x, y, z);
-            }
-        }
-        configFile.close();
         std::cout << "Width: " << m_width << " x " << m_height << std::endl;;
         std::cout << "Camera origin: " << m_lookFrom << std::endl;
         std::cout << "Camera target: " << m_lookAt << "\n" << std::endl;
