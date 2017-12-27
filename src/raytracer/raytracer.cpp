@@ -14,8 +14,12 @@ namespace Raytracer {
         m_infinity(std::numeric_limits<float>::max()),
         m_epsilon(1e-8),
         m_bgColor(Vec3f(0.0f, 0.0f, 0.0f)),
+        m_lookFrom(Vec3f(0.0f, 0.0f, 1.0f)),
+        m_lookAt(Vec3f(0.0f, 0.0f, 0.0f)),
         m_lightPosition(Vec3f(0.5f, 0.2f, 0.6f)),
-        m_lightColor(Vec3f(1.0f, 1.0f, 1.0f))
+        m_lightColor(Vec3f(1.0f, 1.0f, 1.0f)),
+        m_width(640.0f),
+        m_height(480.0f)
     {
     }
 
