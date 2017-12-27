@@ -2,7 +2,7 @@
 
 namespace Raytracer {
     Triangle::Triangle() :
-        m_epsilon(1e-8)
+        m_epsilon(static_cast<float>(1e-8))
     {
     }
 
@@ -10,7 +10,7 @@ namespace Raytracer {
         m_v0(v0),
         m_v1(v1),
         m_v2(v2),
-        m_epsilon(1e-8)
+        m_epsilon(static_cast<float>(1e-8))
     {
         m_bbox.Calculate(m_v0, m_v1, m_v2);
     }
@@ -22,7 +22,7 @@ namespace Raytracer {
         m_n0(n0),
         m_n1(n1),
         m_n2(n2),
-        m_epsilon(1e-8)
+        m_epsilon(static_cast<float>(1e-8))
     {
         m_bbox.Calculate(m_v0, m_v1, m_v2);
     }

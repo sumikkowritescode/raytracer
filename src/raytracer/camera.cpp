@@ -7,7 +7,7 @@
 
 namespace Raytracer {
     Camera::Camera(const Vec3f &lookFrom, const Vec3f &lookAt, const Vec3f &vUp, float vFov, float aspect) {
-        float theta = vFov * M_PI / 180.0f;
+        float theta = vFov * static_cast<float>(M_PI) / 180.0f;
         float halfHeight = tan(theta / 2);
         float halfWidth = aspect * halfHeight;
 

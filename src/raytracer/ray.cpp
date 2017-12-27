@@ -34,5 +34,7 @@ namespace Raytracer {
                 1.0f / m_direction.y,
                 1.0f / m_direction.z
             );
+        else
+            return Vec3f(0.0f, 0.0f, 0.0f);
     }
 }

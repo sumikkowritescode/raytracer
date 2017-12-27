@@ -5,6 +5,7 @@
 #include <limits>
 #include <cassert>
 #include <sstream>
+#include <iomanip>
 
 #include "camera.h"
 #include "raytracer.h"
@@ -12,7 +13,7 @@
 namespace Raytracer {
     Raytracer::Raytracer() :
         m_infinity(std::numeric_limits<float>::max()),
-        m_epsilon(1e-8),
+        m_epsilon(static_cast<float>(1e-8)),
         m_bgColor(Vec3f(0.0f, 0.0f, 0.0f)),
         m_lookFrom(Vec3f(0.0f, 0.0f, 1.0f)),
         m_lookAt(Vec3f(0.0f, 0.0f, 0.0f)),
@@ -75,7 +76,8 @@ namespace Raytracer {
 
         auto endTime = std::chrono::high_resolution_clock::now();
         auto elapsedTime = std::chrono::duration<double, std::milli>(endTime - startTime).count();
-        fprintf(stderr, "\rDone: %.2f seconds \n", elapsedTime / 1000);
+
+        std::cout << "Done: " << std::setw(5) << elapsedTime/ 1000 << " seconds" << std::endl;
 
         WriteFile(m_imageBuffer);
     }
@@ -96,25 +98,27 @@ namespace Raytracer {
         m_useBVH = isEnabled;
     }
 
+    // TODO: Repalce this with an image file writer instead (PNG/TIF/Whatever rocks my boat)
     void Raytracer::WriteFile(const std::vector<Vec3f> &frameBuffer) {
         const int frame = 0;
-        char buffer[256];
 
-        sprintf(buffer, "out.%04d.ppm", frame);
-        std::ofstream ofs;
+        std::ofstream imgFileStream;
 
-        ofs.open(buffer);
-        ofs << "P6\n" << m_width << " " << m_height << "\n255\n";
+        imgFileStream.open("image.ppm");
+        imgFileStream << "P6\n" << m_width << " " << m_height << "\n255\n";
 
-        for (uint32_t i = 0; i < m_height * m_width; ++i)
+        for (size_t i = 0; i < m_height * m_width; ++i)
         {
             char r = (char)(255 * frameBuffer[i].x);
             char g = (char)(255 * frameBuffer[i].y);
             char b = (char)(255 * frameBuffer[i].z);
-            ofs << r << g << b;
+            imgFileStream << r << g << b;
         }
+
+        imgFileStream.close();
     }
 
+    // This function is not handling errors properly. It will get solved once the YAML reader is in place.
     void Raytracer::ReadConfig(const std::string &filename) {
         std::ifstream configFile;
         configFile.open(filename, std::ios_base::in);

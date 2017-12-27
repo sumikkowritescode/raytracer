@@ -99,5 +99,7 @@ namespace Raytracer {
             return 1;
         else if (dz > dx && dz > dy)
             return 2;
+        else
+            return -1;
     }
 }

@@ -8,10 +8,12 @@ Features:
 - Simple Shading
 
 TODO:
-- Different materials
+- Implement YAML support for scenes
+- Image file writing (PNG/TIFF/Something)
+- Materials
 - Support for multiple objects
 - SAH KDTree implementation instead of BVH
-- Use scene configurations instead of a single config file
+- (In the far future Realtime Raytracing with a scene editor; extend this task to smaller ones when this comes closer)
 
 ## Compiling instructions
 Generate the project with CMake and compile.

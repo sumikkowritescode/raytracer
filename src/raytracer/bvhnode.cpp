@@ -62,6 +62,8 @@ namespace Raytracer {
                     rightTriangles.push_back(triangles[i]);
                 else
                     leftTriangles.push_back(triangles[i]);
+            else if (axis == -1)
+                break;
         }
 
         if (leftTriangles.size() == 0 && rightTriangles.size() > 0)
