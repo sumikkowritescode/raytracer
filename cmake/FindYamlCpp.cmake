@@ -45,12 +45,11 @@ find_library(YAMLCPP_LIBRARY_RELEASE
   NAMES ${YAMLCPP_STATIC} yaml-cpp libyaml-cppmd.lib libyaml-cppmt.lib
   PATH_SUFFIXES lib64 lib Release RelWithDebInfo
   PATHS
-  IF(WIN32)
-    ${PROJECT_SOURCE_DIR}/lib/x86
-  ENDIF(WIN32)
-  IF(WIN64)
+  if (${CMAKE_SIZEOF_VOID_P} EQUAL "8")
     ${PROJECT_SOURCE_DIR}/lib/x64
-  ENDIF(WIN64)
+  else()
+    ${PROJECT_SOURCE_DIR}/lib/x86
+  endif()
     ~/Library/Frameworks
     /Library/Frameworks
     /usr/local
@@ -65,12 +64,11 @@ find_library(YAMLCPP_LIBRARY_DEBUG
   NAMES ${YAMLCPP_STATIC_DEBUG} yaml-cpp-dbg libyaml-cppmdd.lib libyaml-cppmtd.lib
   PATH_SUFFIXES lib64 lib Debug
   PATHS
-  IF(WIN32)
-    ${PROJECT_SOURCE_DIR}/lib/x86
-  ENDIF(WIN32)
-  IF(WIN64)
+  if (${CMAKE_SIZEOF_VOID_P} EQUAL "8")
     ${PROJECT_SOURCE_DIR}/lib/x64
-  ENDIF(WIN64)
+  else()
+    ${PROJECT_SOURCE_DIR}/lib/x86
+  endif()
     ~/Library/Frameworks
     /Library/Frameworks
     /usr/local

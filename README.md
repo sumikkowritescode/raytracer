@@ -6,9 +6,10 @@ Features:
   * using tinyobjloader: https://github.com/syoyo/tinyobjloader
 - BVH acceleration
 - Simple Shading
+- Uses YAML format for configuration and scenes
 
 TODO:
-- Implement YAML support for scenes
+- Implement scenes
 - Image file writing (PNG/TIFF/Something)
 - Materials
 - Support for multiple objects
@@ -16,6 +17,7 @@ TODO:
 - (In the far future Realtime Raytracing with a scene editor; extend this task to smaller ones when this comes closer)
 
 ## Compiling instructions
+The project is dependent on yaml-cpp. On OSX/Linux you need to install the `yaml-cpp` package first. On Windows the libraries are already included.
 Generate the project with CMake and compile.
 
 ## Usage instructions
@@ -29,11 +31,4 @@ With BVH acceleration:
 raytracer.exe obj_file_name.obj -bvh
 ```
 
-Camera settings and resolution can be changed in the `config` file in the format
-e.g.
-```
-width 640 
-height 480
-origin x y z
-target x y z
-```
+See the `example_config.yaml`
