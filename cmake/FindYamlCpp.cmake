@@ -45,7 +45,12 @@ find_library(YAMLCPP_LIBRARY_RELEASE
   NAMES ${YAMLCPP_STATIC} yaml-cpp libyaml-cppmd.lib libyaml-cppmt.lib
   PATH_SUFFIXES lib64 lib Release RelWithDebInfo
   PATHS
-    ${PROJECT_SOURCE_DIR}/lib
+  IF(WIN32)
+    ${PROJECT_SOURCE_DIR}/lib/x86
+  ENDIF(WIN32)
+  IF(WIN64)
+    ${PROJECT_SOURCE_DIR}/lib/x64
+  ENDIF(WIN64)
     ~/Library/Frameworks
     /Library/Frameworks
     /usr/local
@@ -60,8 +65,12 @@ find_library(YAMLCPP_LIBRARY_DEBUG
   NAMES ${YAMLCPP_STATIC_DEBUG} yaml-cpp-dbg libyaml-cppmdd.lib libyaml-cppmtd.lib
   PATH_SUFFIXES lib64 lib Debug
   PATHS
-    ${PROJECT_SOURCE_DIR}/dependencies/yaml-cpp-0.5.1/
-    ${PROJECT_SOURCE_DIR}/dependencies/yaml-cpp-0.5.1/build
+  IF(WIN32)
+    ${PROJECT_SOURCE_DIR}/lib/x86
+  ENDIF(WIN32)
+  IF(WIN64)
+    ${PROJECT_SOURCE_DIR}/lib/x64
+  ENDIF(WIN64)
     ~/Library/Frameworks
     /Library/Frameworks
     /usr/local
