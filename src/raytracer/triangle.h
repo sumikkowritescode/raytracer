@@ -17,9 +17,9 @@ namespace Raytracer {
 
         bool GetIntersection(const Ray &ray, float &t);
 
-        BoundingBox GetBoundingBox();
+        BoundingBox GetBoundingBox() const;
 
-        Vec3f GetMidPoint();
+        Vec3f GetMidPoint() const;
         Vec3f GetNormal() const;
 
     private:

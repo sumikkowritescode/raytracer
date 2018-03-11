@@ -16,7 +16,8 @@ file(GLOB SOURCE_FILES
 )
 
 add_executable(${project_name} ${SOURCE_FILES})
-target_link_libraries(${project_name} ${YAMLCPP_LIBRARY})
+target_link_libraries(${project_name} debug ${YAMLCPP_LIBRARY_DEBUG})
+target_link_libraries(${project_name} optimized ${YAMLCPP_LIBRARY})
 set_target_properties(${project_name} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin/")
 
 if(MSVC)

@@ -71,11 +71,12 @@ namespace Raytracer {
         return true;
     }
 
-    BoundingBox Triangle::GetBoundingBox() {
+    BoundingBox Triangle::GetBoundingBox() const {
         return m_bbox;
     }
 
-    Vec3f Triangle::GetMidPoint() {
+    // TODO: pre-calculate and store instead?
+    Vec3f Triangle::GetMidPoint() const {
         return ( (m_v0 + m_v1 + m_v2) / 3);
     }
 

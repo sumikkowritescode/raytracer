@@ -27,6 +27,7 @@ namespace Raytracer {
 
     bool Raytracer::TraceRay(const Ray &ray, TriangleMesh &mesh, float &tNear, bool &rayHit, Vec3f &normal) {
         float tNearTriangle = m_infinity;
+
         if (!m_useBVH)
         {
             if (mesh.GetIntersection(ray, tNearTriangle, normal) && tNearTriangle < tNear) {
@@ -44,6 +45,7 @@ namespace Raytracer {
             }
             return rayHit;
         }
+
         return rayHit;
     }
 
@@ -99,7 +101,7 @@ namespace Raytracer {
         m_useBVH = isEnabled;
     }
 
-    // TODO: Repalce this with an image file writer instead (PNG/TIF/Whatever rocks my boat)
+    // TODO: Repalce this with an image file writer instead
     void Raytracer::WriteFile(const std::vector<Vec3f> &frameBuffer) {
         std::ofstream imgFileStream;
 
@@ -123,8 +125,14 @@ namespace Raytracer {
         m_width = config["settings"]["width"].as<float>();
         m_height = config["settings"]["height"].as<float>();
 
-        m_lookFrom = Vec3f(config["settings"]["origin"][0].as<float>(), config["settings"]["origin"][1].as<float>(), config["settings"]["origin"][2].as<float>());
-        m_lookAt =   Vec3f(config["settings"]["target"][0].as<float>(), config["settings"]["target"][1].as<float>(), config["settings"]["target"][2].as<float>());
+        m_lookFrom = Vec3f(config["settings"]["origin"][0].as<float>(),
+                           config["settings"]["origin"][1].as<float>(),
+                           config["settings"]["origin"][2].as<float>()
+                          );
+        m_lookAt   = Vec3f(config["settings"]["target"][0].as<float>(),
+                           config["settings"]["target"][1].as<float>(),
+                           config["settings"]["target"][2].as<float>()
+                          );
 
         std::cout << "Width: " << m_width << " x " << m_height << std::endl;;
         std::cout << "Camera origin: " << m_lookFrom << std::endl;
