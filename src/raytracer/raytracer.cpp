@@ -21,29 +21,19 @@ namespace Raytracer {
         m_lightPosition(Vec3f(0.5f, 0.2f, 0.6f)),
         m_lightColor(Vec3f(1.0f, 1.0f, 1.0f)),
         m_width(640.0f),
-        m_height(480.0f)
+        m_height(480.0f),
+        m_useBVH(true)
     {
     }
 
     bool Raytracer::TraceRay(const Ray &ray, TriangleMesh &mesh, float &tNear, bool &rayHit, Vec3f &normal) {
         float tNearTriangle = m_infinity;
 
-        if (!m_useBVH)
+        // Use BVH always from now on.  Add more options once KDTree has been added.
+        if (m_bvh->GetIntersection(m_bvh, ray, tNearTriangle, normal) && tNearTriangle < tNear)
         {
-            if (mesh.GetIntersection(ray, tNearTriangle, normal) && tNearTriangle < tNear) {
-                rayHit = true;
-                tNear = tNearTriangle;
-            }
-            return rayHit;
-        }
-        else if (m_useBVH)
-        {
-            if (m_bvh->GetIntersection(m_bvh, ray, tNearTriangle, normal) && tNearTriangle < tNear)
-            {
-                rayHit = true;
-                tNear = tNearTriangle;
-            }
-            return rayHit;
+            rayHit = true;
+            tNear = tNearTriangle;
         }
 
         return rayHit;
@@ -77,12 +67,12 @@ namespace Raytracer {
             }
         }
 
+        WriteFile(m_imageBuffer);
+
         auto endTime = std::chrono::high_resolution_clock::now();
         auto elapsedTime = std::chrono::duration<double, std::milli>(endTime - startTime).count();
 
         std::cout << "Done: " << std::setw(5) << elapsedTime/ 1000 << " seconds" << std::endl;
-
-        WriteFile(m_imageBuffer);
     }
 
     bool Raytracer::LoadModel(const std::string &filename) {
